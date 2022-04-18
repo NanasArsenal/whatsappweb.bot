@@ -1,5 +1,5 @@
 const qrcode = require('qrcode-terminal');
-const ReadText = require('text-from-image')
+const ReadText = require('text-from-image') /*this is for ocr reading text from image */
 
 
 const { Client } = require('whatsapp-web.js');
@@ -7,17 +7,17 @@ const client = new Client();
 
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
-});
+});/*client qr code scanning */
 
 client.on('ready', () => {
     console.log('Client is ready!');
     
-});
+});/*confirmation of scanning and wweb login */
 
 
 // client side event listener
 client.on('message', msg => {
-    if (msg.body.includes('Hi') || msg.body.includes('Hello') || msg.body.includes('Hey')) {
+    if (msg.body.includes('Hi','hi') || msg.body.includes('Hello','hello') || msg.body.includes('Hey','hey')) {
         msg.reply('Hey there, I am Asemnokre an AI fact checking chatbot');
         // setInterval()
         msg.reply(' I am here to help you get your facts right');
@@ -26,14 +26,17 @@ client.on('message', msg => {
     }
 })
 
+//client responds 'text event listener
  client.on('message',async msg => {
-    if(msg.body.includes('TEXT')|| msg.body.includes('text')){
+    if(msg.body.includes('TEXT', 'Text','text')|| msg.body.includes('text')){
         msg.reply("Okay!! Please forward me your text let me do the checking");
         
         setInterval(() => {
     
         }, 1000);
         
+    }else{
+        msg.reply('Sorry, I cannot help you with that. Please try sending "TEXT" ');
     }
 } ) 
 
