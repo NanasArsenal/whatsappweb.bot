@@ -1,3 +1,5 @@
+import Tesseract from 'tesseract.js';
+import axios from 'axios';
 const qrcode = require('qrcode-terminal');
 const ReadText = require('text-from-image') /*this is for ocr reading text from image */
 
@@ -40,21 +42,36 @@ client.on('message', msg => {
     }
 } ) 
 
+client.on('message', async msg=> {
+   const chat = msg.body;
+
+   //make a check from the api 
+   const isFactual = await axios.post('url', {chat:chat}) //first chat is a property of the data our api witll return
+})
+
 //using tesseract to get text from image
-// client.on('message', async msg =>{
-//     if(msg.hasMedia){
-//         const media = await msg.downloadMedia();
-//         //handle media with the tesseract to get text from it
+client.on('message', async msg =>{
+        if(msg.hasMedia){
+            const media = await msg.downloadMedia();
+            //handle media with the tesseract to get text from it
 
-// ReadText(media).then(text => {
-//     console.log(text);
-// }).catch(err => {
-//     console.log(err);
-// })
-//     }
-// }
+    // check if media is png or jpeg
+            if (messageMedia.mimetype === "image/jpeg" || messageMedia.mimetype === "image/png") {
+                 // OCR to get text let a = recognize()
+                Tesseract.recognize(
+                    messageMedia.data,
+                    'eng',
+                    { logger: m => console.log(m) }
+                  ).then(async ({ data: { text } }) => {
+                    console.log(text);
+                  });
+            }
+            
+           
+        }
+    }
 
-// )
+)
 
 // const fetch = require('node-fetch');
 // require('dotenv').config();

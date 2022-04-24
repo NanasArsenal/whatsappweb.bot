@@ -10,6 +10,7 @@
   "author": "Nana Kweku Otoo",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "qrcode-terminal": "^0.12.0",
     "tesseract.js": "^2.1.5",
